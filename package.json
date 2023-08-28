@@ -1,0 +1,26 @@
+{
+  "name": "sevenheaven-api",
+  "version": "1.0.0",
+  "description": "sevenheaven mail api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LSchlierf/sevenheaven-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LSchlierf/sevenheaven-api/issues"
+  },
+  "homepage": "https://github.com/LSchlierf/sevenheaven-api#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^20.5.7"
+  }
+}
