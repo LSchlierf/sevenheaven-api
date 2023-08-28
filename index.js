@@ -8,6 +8,11 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+app.post('/api', (req, res) => {
+    console.log('got post request to /api')
+    console.table(req)
+})
+
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'sevenheaven-site', 'build', 'index.html'));
 });
