@@ -1,19 +1,21 @@
 import express from 'express';
 const app = express();
 app.use(express.static('sevenheaven-site/build'));
+app.use(express.json())
 
-import * as path from 'path'
+import * as path from 'path';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.post('/api', (req, res) => {
-    console.log('got post request to /api')
-    console.table(req)
+    console.log('got post request to /api');
+    console.log(req.body);
+    res.send('Hello world');
 })
 
-app.get('*', (req, res) => {
+app.get('*', (_, res) => {
     res.sendFile(path.resolve(__dirname, 'sevenheaven-site', 'build', 'index.html'));
 });
 
