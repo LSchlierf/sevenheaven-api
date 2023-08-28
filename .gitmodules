@@ -1,0 +1,3 @@
+[submodule "sevenheaven-site"]
+	path = sevenheaven-site
+	url = git@github.com:LSchlierf/sevenheaven-site.git
