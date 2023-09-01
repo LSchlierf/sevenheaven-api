@@ -1,4 +1,5 @@
 {
+  "installCommand": "npm install",
   "builds": [
     {
       "src": "index.js",
