@@ -1,6 +1,6 @@
 import express from 'express';
 const app = express();
-app.use(express.static('/sevenheaven-site/build'));
+app.use(express.static('sevenheaven-site/build'));
 app.use(express.json())
 
 import * as path from 'path';
