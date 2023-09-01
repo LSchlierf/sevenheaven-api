@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "vercel-install": "chmod +x vercel-submodule-workaround.sh && ./vercel-submodule-workaround.sh && npm install --prefix api/sevenheaven-site && npm run build --prefix api/sevenheaven-site"
+    "vercel-install": "chmod +x vercel-submodule-workaround.sh && ./vercel-submodule-workaround.sh && npm install --prefix sevenheaven-site && npm run build --prefix sevenheaven-site"
   },
   "repository": {
     "type": "git",
