@@ -2,7 +2,7 @@
 SUBMODULE_GITHUB=github.com/lschlierf/sevenheaven-site
 
 # .gitmodules submodule path
-SUBMODULE_PATH=api/sevenheaven-site
+SUBMODULE_PATH=sevenheaven-site
 
 # github access token is necessary
 # add it to Environment Variables on Vercel
