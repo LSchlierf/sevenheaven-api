@@ -1,11 +1,9 @@
 {
-  "buildCommand": "npm run vercel-install",
-  "builds": [
-    {
-      "src": "index.js",
-      "use": "@vercel/node"
+  "functions": {
+    "index.js": {
+      "runtime": "@now/node"
     }
-  ],
+  },
   "routes": [
     {
       "src": "/(.*)",
