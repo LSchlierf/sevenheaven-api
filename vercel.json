@@ -3,6 +3,9 @@
     "api/index.js": {
       "runtime": "@vercel/node@3.0.3",
       "includeFiles": "sevenheaven-site/*"
+    },
+    "api/sevenheaven-site/*": {
+      "runtime": "@vercel/static"
     }
   },
   "routes": [
