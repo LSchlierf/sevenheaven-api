@@ -1,6 +1,6 @@
 import express from 'express';
 const app = express();
-app.use(express.static('sevenheaven-site/build'));
+app.use(express.static('../sevenheaven-site/build'));
 app.use(express.json())
 
 import * as path from 'path';
@@ -31,7 +31,7 @@ app.post('/api', (req, res) => {
 })
 
 app.get('*', (_, res) => {
-    res.sendFile(path.resolve(__dirname, 'sevenheaven-site', 'build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, '..', 'sevenheaven-site', 'build', 'index.html'));
 });
 
 // if not in production use the port 5000
