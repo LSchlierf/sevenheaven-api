@@ -1,0 +1,29 @@
+.backWrapper {
+    position: relative;
+    left: 10%;
+    right: 10%;
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    border-radius: 15px;
+    padding: 20px;
+    align-items: center;
+    /* box-sizing: content-box; */
+}
+
+@media only screen and (min-width: 768px) {
+    .backWrapper {
+        width: 40%;
+        left: 30%;
+        right: 30%;
+    }
+}
+
+.backIcon {
+    padding-top: 1vw;
+}
+
+.backText {
+    font-family: 'Montserrat', sans-serif;
+    font-size: inherit;
+}

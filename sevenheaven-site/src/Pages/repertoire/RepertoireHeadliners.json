@@ -1,0 +1,50 @@
+[
+    {
+        "title": "Rockklassiker",
+        "songs": [
+            "Don't stop me now - Queen",
+            "Sex on Fire - Kings of Leon",
+            "Holiday - Green Day"
+        ]
+    },
+    {
+        "title": "Partyhits",
+        "songs": [
+            "Dancing Queen - Abba",
+            "It's my Life - Bon Jovi",
+            "Angels - Robbie Williams"
+        ]
+    },
+    {
+        "title": "2010er",
+        "songs": [
+            "Papaoutai - Stromae",
+            "Alles neu - Peter Fox",
+            "Skyfall - Adele"
+        ]
+    },
+    {
+        "title": "Wiesnhits",
+        "songs": [
+            "Brenna tuats guad - Hubert von Goisern",
+            "Fürstenfeld - S.T.S",
+            "Weusd a Herz hast - Reinhard Fendrich"
+        ]
+    },
+    {
+        "title": "Medleys",
+        "songs": [
+            "Best of Disney-Klassiker",
+            "Britney Spears Medley",
+            "7 Nation Army in verschiedenen Stilen"
+        ]
+    },
+    {
+        "title": "Neue deutsche Welle",
+        "songs": [
+            "Major Tom - Peter Schilling",
+            "99 Lufballons - Nena",
+            "1000 und 1 Nacht - Klaus Lage"
+        ]
+    }
+]

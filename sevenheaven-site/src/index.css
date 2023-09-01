@@ -1,0 +1,50 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color: white;
+  background-color: black;
+  --scrolled: 0
+}
+
+body {
+  margin: 0;
+  font-family: "Nexa Rust Sans W00 Black 02", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.bgImgContainer {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+}
+
+.bgImgContainer > img {
+  object-fit: cover;
+  width: 100vw;
+  height: 100vh;
+  z-index: inherit;
+  filter: blur(10px);
+}
+
+.subPageContent {
+  position: absolute;
+  width: 100vw;
+  top: 40vw;
+}
+
+@media only screen and (min-width: 768px) {
+  .subPageContent {
+    top: 12vw
+  }
+}

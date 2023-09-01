@@ -1,0 +1,36 @@
+.footer {
+    width: 100vw;
+}
+
+.footerGradient {
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgb(255,255,255) 50%, rgba(255,255,255,0) 100%);
+    height: 1vw;
+    width: 80vw;
+    position: relative;
+    left: 10vw;
+    right: 10vw;
+}
+
+.legalWrapper {
+    padding-top: 5vw;
+    padding-bottom: 5vw;
+    display: flex;
+    justify-content: center;
+}
+
+.legalContainer{
+    width: 50vw;
+    display: flex;
+    justify-content: center;
+}
+
+.legal {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 5vw;
+}
+
+@media only screen and (min-width: 768px) {
+    .legal {
+        font-size: 30px;
+    }
+}

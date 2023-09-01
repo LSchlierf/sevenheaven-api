@@ -1,0 +1,18 @@
+.BandLogoWrapper {
+    display: flex;
+    justify-content: center;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.noCenter {
+    justify-content: left;
+}
+
+.BandLogoV {
+    transform: scaleY(-1) translateY(3%) translateX(2%);
+}
+
+.BandLogoV .BandLogoNormal {
+    font-family: "Nexa Rust Sans W00 Black 02" !important;
+}

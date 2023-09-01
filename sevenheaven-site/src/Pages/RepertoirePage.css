@@ -1,0 +1,111 @@
+.repertoireHeadliners {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.repertoireCard {
+    box-sizing: content-box;
+    padding-bottom: 5vw;
+    width: 80%;
+    padding-left: 10%;
+    padding-right: 10%;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+}
+
+.repertoireTitle {
+    background-color: black;
+    font-size: 25px;
+    padding: 10px;
+}
+
+.repertoireContent {
+    background-color: white;
+    font-size: 16px;
+    color: black;
+    padding: 10px;
+}
+
+.repertoireSong {
+    padding-bottom: 10px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.repertoireSong:last-child {
+    padding-bottom: 0;
+}
+
+.moreRepertoire {
+    position: relative;
+    width: 80vw;
+    left: 10vw;
+    right: 10vw;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: fit-content;
+    background-color: darkred;
+    border-radius: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.moreRepertoireText {
+    padding: 10px;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    font-size: 4vw;
+}
+
+.repertoireItem {
+    position: relative;
+    width: 80vw;
+    left: 10vw;
+    right: 10vw;
+    padding-top: 5vw;
+}
+
+@media only screen and (min-width: 768px) {
+    .repertoireCard {
+        box-sizing: border-box;
+        width: 33%;
+        padding-left: 2%;
+        padding-right: 2%;
+        padding-bottom: 4%;
+    }
+
+    .repertoireContent {
+        font-size: 1.2vw;
+    }
+
+    .moreRepertoire {
+        width: 40vw;
+        left: 30vw;
+        right: 30vw;
+    }
+
+    .moreRepertoireText {
+        font-size: 200%;
+    }
+
+    .repertoire {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .repertoireItem {
+        width: 50vw;
+        left: 0;
+        right: 0;
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+    
+    .repertoireSongs > .repertoireSong {
+        text-align: center;
+        font-size: x-large;
+    }
+}
