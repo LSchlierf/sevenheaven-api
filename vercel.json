@@ -1,6 +1,6 @@
 {
   "functions": {
-    "index.js": {
+    "api/*.js": {
       "runtime": "@vercel/node@3.0.3"
     }
   },
