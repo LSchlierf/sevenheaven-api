@@ -10,9 +10,24 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.post('/api', (req, res) => {
-    console.log('got post request to /api');
+    console.log('got post request to /api from ' + req.ip);
     console.log(req.body);
-    res.send('Hello world');
+
+    //handle malformed request errors
+    const request = req.body
+    if (!request) {
+        res.json({'status' : 'error', 'error' : 'missing request body'})
+    }
+    const mail = request.mail
+    if(!mail) {
+        res.json({'status' : 'error', 'error' : 'missing email address'})
+    }
+    const mesg = request.mesg
+    if(!mesg) {
+        res.json({'status' : 'error', 'error' : 'missing message'})
+    }
+
+    res.json({'status' : 'success', 'request' : req.body});
 })
 
 app.get('*', (_, res) => {
