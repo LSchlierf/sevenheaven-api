@@ -4,7 +4,7 @@
       "runtime": "@vercel/node@3.0.3",
       "includeFiles": "sevenheaven-site/*"
     },
-    "api/sevenheaven-site/*": {
+    "api/sevenheaven-site/build/*": {
       "runtime": "@vercel/static-build@2.0.3"
     }
   },
