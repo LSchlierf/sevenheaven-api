@@ -1,7 +1,8 @@
 {
   "functions": {
     "api/index.js": {
-      "runtime": "@vercel/node@3.0.3"
+      "runtime": "@vercel/node@3.0.3",
+      "includeFiles": "sevenheaven-site/*"
     }
   },
   "routes": [
