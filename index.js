@@ -16,18 +16,20 @@ app.post('/api', (req, res) => {
     //handle malformed request errors
     const request = req.body
     if (!request) {
-        res.json({'status' : 'error', 'error' : 'missing request body'})
+        res.json({ 'status': 'error', 'error': 'missing request body' })
     }
     const mail = request.mail
-    if(!mail) {
-        res.json({'status' : 'error', 'error' : 'missing email address'})
+    if (!mail) {
+        res.json({ 'status': 'error', 'error': 'missing email address' })
     }
     const mesg = request.mesg
-    if(!mesg) {
-        res.json({'status' : 'error', 'error' : 'missing message'})
+    if (!mesg) {
+        res.json({ 'status': 'error', 'error': 'missing message' })
     }
 
-    res.json({'status' : 'success', 'request' : req.body});
+    // setTimeout(() => {
+    res.json({ 'status': 'success', 'request': req.body });
+    // }, 2000)
 })
 
 app.get('*', (_, res) => {
@@ -36,5 +38,5 @@ app.get('*', (_, res) => {
 
 // if not in production use the port 5000
 const PORT = process.env.PORT || 5000;
-console.log('server started on port:',PORT);
+console.log('server started on port:', PORT);
 app.listen(PORT);
