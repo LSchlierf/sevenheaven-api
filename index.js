@@ -1,7 +1,7 @@
 import express from 'express';
 const app = express();
 import bodyParser from 'body-parser';
-app.use(express.static('sevenheaven-site/build'));
+app.use(express.static('../sevenheaven-site/build'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
@@ -41,7 +41,8 @@ app.post('/api', (req, res) => {
 // serve frontend only if not in production
 if (!process.env.PORT) {
     app.get('*', (_, res) => {
-        res.sendFile(path.resolve(__dirname, 'sevenheaven-site', 'build', 'index.html'));
+        console.log('frontend request')
+        res.sendFile(path.resolve(__dirname, '..', 'sevenheaven-site', 'build', 'index.html'));
     });
 }
 
