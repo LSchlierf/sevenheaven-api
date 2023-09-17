@@ -4,8 +4,7 @@
   "description": "sevenheaven mail api",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "vercel-build": "npm install --prefix sevenheaven-site && npm run build --prefix sevenheaven-site"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -18,8 +17,7 @@
   },
   "homepage": "https://github.com/LSchlierf/sevenheaven-api#readme",
   "dependencies": {
-    "express": "^4.18.2",
-    "sevenheaven": "file:sevenheaven-site"
+    "express": "^4.18.2"
   },
   "type": "module",
   "devDependencies": {
