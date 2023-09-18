@@ -4,6 +4,7 @@ import * as path from 'path';
 import { fileURLToPath } from 'url';
 import { readFileSync } from 'fs';
 import nodemailer from 'nodemailer'
+import { exit } from 'process';
 
 const app = express();
 
@@ -29,6 +30,10 @@ function getCredentials() {
 }
 
 const secrets = getCredentials()
+if(!secrets) {
+    console.error('Credentials not found, please set environment variables USER and PASS or create secrets.json')
+    exit(1)
+}
 
 const transporter = nodemailer.createTransport({
     host: "smtppro.zoho.com",
