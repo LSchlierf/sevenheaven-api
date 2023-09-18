@@ -1,22 +1,51 @@
 import express from 'express';
-const app = express();
 import bodyParser from 'body-parser';
-app.use(express.static('../sevenheaven-site/build'));
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
-
 import * as path from 'path';
 import { fileURLToPath } from 'url';
+import { readFileSync } from 'fs';
+import nodemailer from 'nodemailer'
+
+const app = express();
+
+app.use(express.static('../sevenheaven-site/build'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// function getCredentials() {
-    
-// }
+function getCredentials() {
+    if (process.env.USER && process.env.PASS) {
+        return { USER: process.env.USER, PASS: process.env.PASS }
+    }
+    try {
+        const secrets = JSON.parse(
+            readFileSync('./secrets.json')
+        );
+        return secrets
+    } catch (e) {
+        return false
+    }
+}
 
-app.post('/api', (req, res) => {
-    console.log('got post request to /api from ' + req.ip);
+const secrets = getCredentials()
+
+const transporter = nodemailer.createTransport({
+    host: "smtppro.zoho.com",
+    port: 465,
+    secure: true,
+    auth: {
+        user: secrets.USER,
+        pass: secrets.PASS
+    }
+})
+
+function htmlencode(rawstr) {
+    return rawstr.replace(/[<>\&]/g, i => '&#' + i.charCodeAt(0) + ';')
+}
+
+app.post('/api', async function (req, res) {
+    console.log('got post request to /api');
     console.log(req.body);
 
     // handle malformed request errors
@@ -33,9 +62,28 @@ app.post('/api', (req, res) => {
         res.json({ 'status': 'error', 'error': 'missing message' })
     }
 
-    // setTimeout(() => {
+    const info = await Promise.all([
+        transporter.sendMail({
+            from: "kontakt@sevenheaven.band",
+            to: "kontakt@sevenheaven.band",
+            subject: "Neue Kontaktanfrage",
+            text: "Neue Nachricht von " + htmlencode(mail) + " :\n\n" + htmlencode(mesg) + "\n"
+        }),
+        transporter.sendMail({
+            from: "Seven Heaven <kontakt@sevenheaven.band>",
+            to: mail,
+            subject: "Deine Kontaktanfrage",
+            text: "Hi!\nVielen Dank für deine Kontaktanfrage:\n" + htmlencode(mesg) + "\n\nWir melden uns so schnell wie möglich!\n\nMit freundlichen Grüßen\nSeven Heaven"
+        })
+    ])
+
+    console.log(info)
+
+    if (!info[0].response.startsWith('2') || info[0].rejected.length > 0 || !info[1].response.startsWith('2') || info[1].rejected.length > 0) {
+        res.json({ 'status': 'error', 'error': 'internal error' })
+    }
+
     res.json({ 'status': 'success', 'request': req.body });
-    // }, 2000)
 })
 
 // serve frontend only if not in production
