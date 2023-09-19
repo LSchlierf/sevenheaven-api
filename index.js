@@ -14,6 +14,8 @@ app.use(bodyParser.json());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const mailRegex = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+
 function getCredentials() {
     if (process.env.USER && process.env.PASS) {
         return { USER: process.env.USER, PASS: process.env.PASS }
@@ -56,18 +58,27 @@ app.post('/api', async function (req, res) {
     const request = req.body
     if (!request) {
         console.log('missing body')
+        res.statusCode = 400
         res.json({ 'status': 'error', 'error': 'missing request body' })
         return
     }
     const mail = request.mail
     if (!mail) {
         console.log('missing mail')
+        res.statusCode = 400
         res.json({ 'status': 'error', 'error': 'missing email address' })
+        return
+    }
+    if(!mailRegex.test(mail)) {
+        console.log('malformed mail')
+        res.statusCode = 400
+        res.json({ 'status': 'error', 'error': 'malformed email address' })
         return
     }
     const mesg = request.mesg
     if (!mesg) {
         console.log('missing message')
+        res.statusCode = 400
         res.json({ 'status': 'error', 'error': 'missing message' })
         return
     }
@@ -93,15 +104,18 @@ app.post('/api', async function (req, res) {
 
         if (!info[0].response.startsWith('2') || info[0].rejected.length > 0 || !info[1].response.startsWith('2') || info[1].rejected.length > 0) {
             console.log('error sending mail')
+            res.statusCode = 500
             res.json({ 'status': 'error', 'error': 'internal error' })
             return
         }
 
         console.log('success')
+        res.statusCode = 200
         res.json({ 'status': 'success', 'request': req.body });
 
     } catch {
         console.log('internal error')
+        res.statusCode = 500
         res.json({ 'status': 'error', 'error': 'internal error' })
     }
 })
