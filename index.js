@@ -83,6 +83,7 @@ app.post('/api', async function (req, res) {
         return
     }
 
+    // attempt to send notification and feedback mail
     try {
 
         const info = await Promise.all([
@@ -102,6 +103,7 @@ app.post('/api', async function (req, res) {
 
         console.log(info)
 
+        // verify mails sent
         if (!info[0].response.startsWith('2') || info[0].rejected.length > 0 || !info[1].response.startsWith('2') || info[1].rejected.length > 0) {
             console.log('error sending mail')
             res.statusCode = 500
@@ -109,6 +111,7 @@ app.post('/api', async function (req, res) {
             return
         }
 
+        // return success
         console.log('success')
         res.statusCode = 200
         res.json({ 'status': 'success', 'request': req.body });
