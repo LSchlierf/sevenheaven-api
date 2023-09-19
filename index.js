@@ -8,7 +8,6 @@ import { exit } from 'process';
 
 const app = express();
 
-app.use(express.static('../sevenheaven-site/build'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -30,7 +29,7 @@ function getCredentials() {
 }
 
 const secrets = getCredentials()
-if(!secrets) {
+if (!secrets) {
     console.error('Credentials not found, please set environment variables USER and PASS or create secrets.json')
     exit(1)
 }
@@ -56,43 +55,60 @@ app.post('/api', async function (req, res) {
     // handle malformed request errors
     const request = req.body
     if (!request) {
+        console.log('missing body')
         res.json({ 'status': 'error', 'error': 'missing request body' })
+        return
     }
     const mail = request.mail
     if (!mail) {
+        console.log('missing mail')
         res.json({ 'status': 'error', 'error': 'missing email address' })
+        return
     }
     const mesg = request.mesg
     if (!mesg) {
+        console.log('missing message')
         res.json({ 'status': 'error', 'error': 'missing message' })
+        return
     }
 
-    const info = await Promise.all([
-        transporter.sendMail({
-            from: "kontakt@sevenheaven.band",
-            to: "kontakt@sevenheaven.band",
-            subject: "Neue Kontaktanfrage",
-            text: "Neue Nachricht von " + htmlencode(mail) + " :\n\n" + htmlencode(mesg) + "\n"
-        }),
-        transporter.sendMail({
-            from: "Seven Heaven <kontakt@sevenheaven.band>",
-            to: mail,
-            subject: "Deine Kontaktanfrage",
-            text: "Hi!\nVielen Dank für deine Kontaktanfrage:\n" + htmlencode(mesg) + "\n\nWir melden uns so schnell wie möglich!\n\nMit freundlichen Grüßen\nSeven Heaven"
-        })
-    ])
+    try {
 
-    console.log(info)
+        const info = await Promise.all([
+            transporter.sendMail({
+                from: "kontakt@sevenheaven.band",
+                to: "kontakt@sevenheaven.band",
+                subject: "Neue Kontaktanfrage",
+                text: "Neue Nachricht von " + htmlencode(mail) + " :\n\n" + htmlencode(mesg) + "\n"
+            }),
+            transporter.sendMail({
+                from: "Seven Heaven <kontakt@sevenheaven.band>",
+                to: mail,
+                subject: "Deine Kontaktanfrage",
+                text: "Hi!\nVielen Dank für deine Kontaktanfrage:\n" + htmlencode(mesg) + "\n\nWir melden uns so schnell wie möglich!\n\nMit freundlichen Grüßen\nSeven Heaven"
+            })
+        ])
 
-    if (!info[0].response.startsWith('2') || info[0].rejected.length > 0 || !info[1].response.startsWith('2') || info[1].rejected.length > 0) {
+        console.log(info)
+
+        if (!info[0].response.startsWith('2') || info[0].rejected.length > 0 || !info[1].response.startsWith('2') || info[1].rejected.length > 0) {
+            console.log('error sending mail')
+            res.json({ 'status': 'error', 'error': 'internal error' })
+            return
+        }
+
+        console.log('success')
+        res.json({ 'status': 'success', 'request': req.body });
+
+    } catch {
+        console.log('internal error')
         res.json({ 'status': 'error', 'error': 'internal error' })
     }
-
-    res.json({ 'status': 'success', 'request': req.body });
 })
 
 // serve frontend only if not in production
 if (!process.env.PORT) {
+    app.use(express.static('../sevenheaven-site/build'));
     app.get('*', (_, res) => {
         console.log('frontend request')
         res.sendFile(path.resolve(__dirname, '..', 'sevenheaven-site', 'build', 'index.html'));
