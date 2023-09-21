@@ -47,7 +47,7 @@ const transporter = nodemailer.createTransport({
 })
 
 function htmlencode(rawstr) {
-    return rawstr.replace(/[<>\&]/g, i => '&#' + i.charCodeAt(0) + ';')
+    return rawstr.replace(/[\u00A0-\u9999<>\&]/g, i => '&#' + i.charCodeAt(0) + ';')
 }
 
 app.post('/api', async function (req, res) {
@@ -91,13 +91,13 @@ app.post('/api', async function (req, res) {
                 from: "kontakt@sevenheaven.band",
                 to: "kontakt@sevenheaven.band",
                 subject: "Neue Kontaktanfrage",
-                text: "Neue Nachricht von " + htmlencode(mail) + " :\n\n" + htmlencode(mesg) + "\n"
+                text: "Neue Nachricht von " + mail + " :\n\n" + mesg + "\n"
             }),
             transporter.sendMail({
                 from: "Seven Heaven <kontakt@sevenheaven.band>",
                 to: mail,
                 subject: "Deine Kontaktanfrage",
-                text: "Hi!\nVielen Dank für deine Kontaktanfrage:\n" + htmlencode(mesg) + "\n\nWir melden uns so schnell wie möglich!\n\nMit freundlichen Grüßen\nSeven Heaven"
+                html: "Hi!<br/>Vielen Dank für deine Kontaktanfrage:<br/>" + htmlencode(mesg) + "<br/><br/>Wir melden uns so schnell wie möglich!<br/><br/>Mit freundlichen Grüßen<br/>Seven Heaven"
             })
         ])
 
