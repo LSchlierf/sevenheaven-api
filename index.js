@@ -47,7 +47,7 @@ const transporter = nodemailer.createTransport({
 })
 
 function htmlencode(rawstr) {
-    return rawstr.replace(/[\u00A0-\u9999<>\&]/g, i => '&#' + i.charCodeAt(0) + ';')
+    return rawstr.replace(/[\u00A0-\u9999<>()\[\]{}\\+-;*\&]/g, i => '&#' + i.charCodeAt(0) + ';')
 }
 
 app.post('/api', async function (req, res) {
