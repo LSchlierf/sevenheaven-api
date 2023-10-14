@@ -47,12 +47,12 @@ const transporter = nodemailer.createTransport({
 })
 
 function htmlencode(rawstr) {
-    return rawstr.replace(/[\u00A0-\u9999<>()\[\]{}\\+-;*\&]/g, i => '&#' + i.charCodeAt(0) + ';')
+    return rawstr.replace(/[\u00A0-\u9999<>()\[\]{}\\+-;*\&%"'$]/g, i => '&#' + i.charCodeAt(0) + ';')
 }
 
 app.post('/api', async function (req, res) {
     console.log('got post request to /api');
-    console.log(req.body);
+    // console.log(req.body);
 
     // handle malformed request errors
     const request = req.body
@@ -101,7 +101,7 @@ app.post('/api', async function (req, res) {
             })
         ])
 
-        console.log(info)
+        // console.log(info)
 
         // verify mails sent
         if (!info[0].response.startsWith('2') || info[0].rejected.length > 0 || !info[1].response.startsWith('2') || info[1].rejected.length > 0) {
